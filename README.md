@@ -104,6 +104,21 @@ La ficha de personaje del hero usa `img/poporroyo.webp`. Para cambiarla, sustitu
 ### 9. Imagen Open Graph (vista previa al compartir el enlace)
 Coloca una imagen `og-cover.jpg` (1200×630px recomendado) dentro de `assets/` — ya está referenciada en el `<head>` de `index.html`.
 
+### 10. Chat de Discord flotante (WidgetBot)
+Al final de `index.html`, justo antes de `</body>`, hay un pequeño script que carga el **Crate** de [WidgetBot](https://widgetbot.io/): una burbuja de chat de Discord flotante, minimizada por defecto, que deja a los visitantes chatear sin salir de la web.
+
+```js
+new Crate({
+  server: '1329247427945037845', // ID de tu servidor de Discord
+  defaultVisibility: 'minimized',
+  indicator: true,
+});
+```
+
+- Si cambias de servidor de Discord, sustituye el `server` por el ID nuevo.
+- Puedes añadir `channel: 'ID_DEL_CANAL'` si quieres que abra un canal concreto en vez del que configuraste por defecto en el panel de WidgetBot.
+- `defaultVisibility: 'maximized'` hace que empiece abierta en vez de minimizada.
+
 ## 🎨 Personalización visual
 
 Todos los colores, tipografías y espaciados están centralizados como *custom properties* al inicio de `css/styles.css`:
