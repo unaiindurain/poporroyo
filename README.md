@@ -13,6 +13,8 @@ poporroyo/
 │   └── styles.css
 ├── js/
 │   └── main.js
+├── img/
+│   └── poporroyo.webp   (foto usada en la ficha "Leonida ID" del hero)
 ├── assets/          (coloca aquí tus imágenes: og-cover.jpg, etc.)
 └── README.md
 ```
@@ -47,7 +49,8 @@ Busca y reemplaza las URLs en **`index.html`** (aparecen en 3 sitios: Hero, secc
 | TikTok Secundario | `https://www.tiktok.com/@poporroyogoat` |
 | Instagram | `https://www.instagram.com/poporroyo/` |
 | Discord | `https://discord.gg/9NjHJTBdT` |
-| X / Twitter | `href="#"` — **pendiente**: no se proporcionó enlace, sustituye el `#` por tu URL real (aparece en la tarjeta de la sección Red y en el footer). |
+
+> Nota: la tarjeta de X/Twitter se eliminó de la Red y del footer porque esa cuenta no existe todavía. Si la creas en el futuro, puedes volver a añadirla copiando el patrón de la tarjeta de Instagram en `index.html`.
 
 ### 2. Correo de contacto
 En `index.html`, dentro de la sección `#business`, el botón de copiar usa:
@@ -64,7 +67,10 @@ const IS_LIVE = false; // cámbialo a true cuando empieces el directo
 
 ### 4. Reproductor "EN PANTALLA"
 - **Twitch**: en `js/main.js`, variable `TWITCH_CHANNEL = 'poporroyo_'` — ya configurada, el `parent` se calcula automáticamente según el dominio donde se publique.
-- **YouTube**: en `index.html`, dentro de `#player`, sustituye `VIDEO_ID_PRINCIPAL` y `VIDEO_ID_SECUNDARIO` por el ID del último vídeo de cada canal (la parte final de la URL `youtube.com/watch?v=ESTE_ID`).
+- **YouTube**: los dos iframes de `#player` apuntan a la *playlist de subidas* de cada canal (`https://www.youtube.com/embed/videoseries?list=UU...`), no a un vídeo concreto. YouTube coloca siempre el vídeo más reciente en primer lugar, así que el reproductor **muestra automáticamente el último vídeo subido** sin que tengas que tocar el código nunca.
+  - Canal principal: lista `UUhFPZK4WwDzGYlwZylrp5dg`
+  - Canal secundario: lista `UUSs-U38Ki44q7WVyLLY8r7g`
+  - Si alguna vez cambias de canal/usuario, obtén el nuevo ID (empieza por `UC`) desde `https://www.youtube.com/@tu_usuario` → "Ver código fuente" → busca `"externalId"`, y sustituye el prefijo `UC` por `UU` en el `list=`.
 
 ### 5. Horario semanal
 Edita directamente los textos dentro de `<ol class="schedule__list">` en `index.html`. El día actual se resalta automáticamente mediante JavaScript (no requiere configuración).
@@ -73,9 +79,14 @@ Edita directamente los textos dentro de `<ol class="schedule__list">` en `index.
 En la sección `#business`, sustituye los tres `<span class="stat__value">—</span>` por tus cifras reales (seguidores totales, media de viewers, alcance mensual).
 
 ### 7. Clips destacados
-Cada `<article class="clip">` en la sección `#clips` es un marcador de posición. Sustituye el título, duración, categoría y añade tu imagen/vídeo dentro de `.clip__media` (puedes poner una `<img>` o `<video>` ahí).
+La sección `#clips` muestra 4 YouTube Shorts reales del canal (Twitch y TikTok no permiten obtener sus clips automáticamente sin iniciar sesión, así que se usaron los Shorts públicos como fuente). Cada tarjeta es un `<a class="clip">` que enlaza al short real y usa su miniatura oficial (`https://i.ytimg.com/vi/ID/frame0.jpg`).
 
-### 8. Imagen Open Graph (vista previa al compartir el enlace)
+Para actualizarlos manualmente: cambia el `href` por la URL del clip/short que quieras destacar, el `src` de la `<img>` por su miniatura, y los textos de categoría/vistas/título.
+
+### 8. Foto "Leonida ID" (ficha del hero)
+La ficha de personaje del hero usa `img/poporroyo.webp`. Para cambiarla, sustituye ese archivo por otra imagen (manteniendo el mismo nombre) o actualiza la ruta `src` en el `<img class="poster-card__photo">` dentro de `index.html`.
+
+### 9. Imagen Open Graph (vista previa al compartir el enlace)
 Coloca una imagen `og-cover.jpg` (1200×630px recomendado) dentro de `assets/` — ya está referenciada en el `<head>` de `index.html`.
 
 ## 🎨 Personalización visual

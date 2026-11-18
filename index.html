@@ -86,7 +86,7 @@
             <span>#024</span>
           </div>
           <div class="poster-card__figure" aria-hidden="true">
-            <span class="poster-card__silhouette">P</span>
+            <img src="img/poporroyo.webp" alt="" class="poster-card__photo" loading="lazy">
           </div>
           <div class="poster-card__footer">
             <span class="poster-card__label">POPORROYO</span>
@@ -176,16 +176,6 @@
         </div>
       </a>
 
-      <!-- X / Twitter -->
-      <a class="bento__card bento__card--x" href="#" target="_blank" rel="noopener">
-        <svg class="bento__icon" viewBox="0 0 24 24" fill="none"><path d="M3 3l7.5 9.2L3.3 21h2.5l6-6.9 5 6.9H21l-7.8-9.7L20.3 3h-2.5l-5.5 6.3L7.5 3H3Z" fill="currentColor"/></svg>
-        <div class="bento__body">
-          <h3>X // TWITTER</h3>
-          <p class="bento__handle">@poporroyo</p>
-          <p class="bento__desc">Anuncios, novedades y conversación directa con la comunidad.</p>
-        </div>
-      </a>
-
       <!-- Discord -->
       <a class="bento__card bento__card--discord" href="https://discord.gg/9NjHJTBdT" target="_blank" rel="noopener">
         <svg class="bento__icon" viewBox="0 0 24 24" fill="none"><path d="M18.9 6.4A15.9 15.9 0 0 0 15 5.1l-.2.4a13 13 0 0 1 3.5 1.3 14 14 0 0 0-12.6 0 13 13 0 0 1 3.5-1.3L9 5.1a15.9 15.9 0 0 0-3.9 1.3C2.8 9.6 2.1 12.7 2.4 15.8a14.6 14.6 0 0 0 4.5 2.3l.6-1a9.8 9.8 0 0 1-1.6-.8l.4-.3a11.6 11.6 0 0 0 10.4 0l.4.3a9.8 9.8 0 0 1-1.6.8l.6 1a14.6 14.6 0 0 0 4.5-2.3c.4-3.5-.6-6.6-1.7-9.4ZM9 13.8c-.8 0-1.4-.7-1.4-1.6S8.2 10.6 9 10.6s1.5.7 1.4 1.6c0 .9-.6 1.6-1.4 1.6Zm6 0c-.8 0-1.4-.7-1.4-1.6s.6-1.6 1.4-1.6 1.5.7 1.4 1.6c0 .9-.6 1.6-1.4 1.6Z" fill="currentColor"/></svg>
@@ -217,12 +207,12 @@
           <iframe id="twitchFrame" src="" title="Directo de Twitch" allowfullscreen loading="lazy"></iframe>
         </div>
         <div class="player__screen" data-screen="yt-main">
-          <!-- Reemplaza VIDEO_ID_PRINCIPAL por el ID del último vídeo del canal principal -->
-          <iframe src="https://www.youtube.com/embed/VIDEO_ID_PRINCIPAL" title="Último vídeo canal principal" allowfullscreen loading="lazy"></iframe>
+          <!-- Embed de la playlist de subidas del canal principal: YouTube siempre coloca el último vídeo subido primero, así que esto se actualiza solo sin tocar el código. -->
+          <iframe src="https://www.youtube.com/embed/videoseries?list=UUhFPZK4WwDzGYlwZylrp5dg" title="Último vídeo del canal principal" allowfullscreen loading="lazy"></iframe>
         </div>
         <div class="player__screen" data-screen="yt-sec">
-          <!-- Reemplaza VIDEO_ID_SECUNDARIO por el ID del último vídeo del canal secundario -->
-          <iframe src="https://www.youtube.com/embed/VIDEO_ID_SECUNDARIO" title="Último vídeo canal secundario" allowfullscreen loading="lazy"></iframe>
+          <!-- Embed de la playlist de subidas del canal secundario: se actualiza solo con cada vídeo nuevo. -->
+          <iframe src="https://www.youtube.com/embed/videoseries?list=UUSs-U38Ki44q7WVyLLY8r7g" title="Último vídeo del canal secundario" allowfullscreen loading="lazy"></iframe>
         </div>
       </div>
     </div>
@@ -236,41 +226,45 @@
     </div>
 
     <div class="clips__grid">
-      <article class="clip clip--featured">
+      <a class="clip clip--featured" href="https://www.youtube.com/shorts/dsDepAJNVoY" target="_blank" rel="noopener">
         <div class="clip__media">
-          <span class="clip__duration">02:14</span>
-          <span class="clip__category">CLUTCH</span>
+          <img src="https://i.ytimg.com/vi/dsDepAJNVoY/frame0.jpg" alt="" loading="lazy">
+          <span class="clip__category">CUPHEAD</span>
+          <span class="clip__duration">2,6 mil vistas</span>
         </div>
-        <h3 class="clip__title">La jugada que nadie vio venir</h3>
-        <p class="clip__meta">Twitch Clips // Destacado de la semana</p>
-      </article>
+        <h3 class="clip__title">Vídeo entero en YouTube: Poporroyo</h3>
+        <p class="clip__meta">YouTube Shorts // @poporroyo</p>
+      </a>
 
-      <article class="clip">
+      <a class="clip" href="https://www.youtube.com/shorts/ZDyBwEmJnZA" target="_blank" rel="noopener">
         <div class="clip__media">
-          <span class="clip__duration">00:48</span>
-          <span class="clip__category">FAIL</span>
+          <img src="https://i.ytimg.com/vi/ZDyBwEmJnZA/frame0.jpg" alt="" loading="lazy">
+          <span class="clip__category">HUMOR</span>
+          <span class="clip__duration">1,9 mil vistas</span>
         </div>
-        <h3 class="clip__title">Así NO se conduce en Leonida</h3>
-        <p class="clip__meta">TikTok // Shorts</p>
-      </article>
+        <h3 class="clip__title">La mejor intro de la historia</h3>
+        <p class="clip__meta">YouTube Shorts // @poporroyo</p>
+      </a>
 
-      <article class="clip">
+      <a class="clip" href="https://www.youtube.com/shorts/kk5Lob7Y0aA" target="_blank" rel="noopener">
         <div class="clip__media">
-          <span class="clip__duration">01:32</span>
-          <span class="clip__category">RISAS</span>
+          <img src="https://i.ytimg.com/vi/kk5Lob7Y0aA/frame0.jpg" alt="" loading="lazy">
+          <span class="clip__category">DIRECTO</span>
+          <span class="clip__duration">1,8 mil vistas</span>
         </div>
-        <h3 class="clip__title">Reacción en directo a la noticia</h3>
-        <p class="clip__meta">YouTube // Momentos</p>
-      </article>
+        <h3 class="clip__title">Stream histórico a las 7 y media</h3>
+        <p class="clip__meta">YouTube Shorts // @poporroyo</p>
+      </a>
 
-      <article class="clip">
+      <a class="clip" href="https://www.youtube.com/shorts/1grGrEGng6Y" target="_blank" rel="noopener">
         <div class="clip__media">
-          <span class="clip__duration">03:05</span>
-          <span class="clip__category">ÉPICO</span>
+          <img src="https://i.ytimg.com/vi/1grGrEGng6Y/frame0.jpg" alt="" loading="lazy">
+          <span class="clip__category">FNAF</span>
+          <span class="clip__duration">1,6 mil vistas</span>
         </div>
-        <h3 class="clip__title">El final de temporada más loco</h3>
-        <p class="clip__meta">Twitch Clips // Comunidad</p>
-      </article>
+        <h3 class="clip__title">Five Nights at Pedro Sánchez's</h3>
+        <p class="clip__meta">YouTube Shorts // @poporroyo</p>
+      </a>
     </div>
   </section>
 
@@ -349,9 +343,6 @@
       </a>
       <a href="https://www.instagram.com/poporroyo/" target="_blank" rel="noopener" aria-label="Instagram">
         <svg viewBox="0 0 24 24" fill="none"><rect x="2.5" y="2.5" width="19" height="19" rx="5" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="12" r="4.3" stroke="currentColor" stroke-width="1.7"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor"/></svg>
-      </a>
-      <a href="#" target="_blank" rel="noopener" aria-label="X / Twitter">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M3 3l7.5 9.2L3.3 21h2.5l6-6.9 5 6.9H21l-7.8-9.7L20.3 3h-2.5l-5.5 6.3L7.5 3H3Z" fill="currentColor"/></svg>
       </a>
       <a href="https://discord.gg/9NjHJTBdT" target="_blank" rel="noopener" aria-label="Discord">
         <svg viewBox="0 0 24 24" fill="none"><path d="M18.9 6.4A15.9 15.9 0 0 0 15 5.1l-.2.4a13 13 0 0 1 3.5 1.3 14 14 0 0 0-12.6 0 13 13 0 0 1 3.5-1.3L9 5.1a15.9 15.9 0 0 0-3.9 1.3C2.8 9.6 2.1 12.7 2.4 15.8a14.6 14.6 0 0 0 4.5 2.3l.6-1a9.8 9.8 0 0 1-1.6-.8l.4-.3a11.6 11.6 0 0 0 10.4 0l.4.3a9.8 9.8 0 0 1-1.6.8l.6 1a14.6 14.6 0 0 0 4.5-2.3c.4-3.5-.6-6.6-1.7-9.4ZM9 13.8c-.8 0-1.4-.7-1.4-1.6S8.2 10.6 9 10.6s1.5.7 1.4 1.6c0 .9-.6 1.6-1.4 1.6Zm6 0c-.8 0-1.4-.7-1.4-1.6s.6-1.6 1.4-1.6 1.5.7 1.4 1.6c0 .9-.6 1.6-1.4 1.6Z" fill="currentColor"/></svg>
