@@ -15,7 +15,7 @@ const TWITCH_CHANNEL = 'poporroyo_';
  * por "Referrer HTTP" a tu dominio (p. ej. unaiindurain.github.io/*).
  * Mientras esté vacía, el bloque de suscriptores se queda en "—".
  */
-const YOUTUBE_API_KEY = '';
+const YOUTUBE_API_KEY = 'AIzaSyA_lCO-MtjsHDcP51JHR1xGiD23jLrSBFo';
 const YOUTUBE_CHANNEL_IDS = [
   'UChFPZK4WwDzGYlwZylrp5dg', // @poporroyo
   'UCSs-U38Ki44q7WVyLLY8r7g', // @PoporroyoDos
