@@ -706,6 +706,17 @@ section { padding: 96px 0; position: relative; }
   text-transform: uppercase;
 }
 
+.stat__source {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--pool-teal);
+  opacity: 0.8;
+}
+
+.stat__source:empty { display: none; }
+
 .business__contact p {
   color: var(--text-lavender);
   margin-bottom: 18px;

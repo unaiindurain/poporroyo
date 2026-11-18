@@ -76,7 +76,22 @@ const IS_LIVE = false; // cámbialo a true cuando empieces el directo
 Edita directamente los textos dentro de `<ol class="schedule__list">` en `index.html`. El día actual se resalta automáticamente mediante JavaScript (no requiere configuración).
 
 ### 6. Métricas de Business
-En la sección `#business`, sustituye los tres `<span class="stat__value">—</span>` por tus cifras reales (seguidores totales, media de viewers, alcance mensual).
+
+Dos de las tres cifras se actualizan **solas**, sin que tengas que tocar el código nunca:
+
+- **Suscriptores YouTube** (suma de los dos canales) — en vivo, vía la API oficial de YouTube. Necesita una API key gratuita (una sola vez):
+  1. Ve a [Google Cloud Console](https://console.cloud.google.com/) → crea un proyecto.
+  2. En "APIs y servicios" → habilita **YouTube Data API v3**.
+  3. En "Credenciales" → "Crear credenciales" → **Clave de API**.
+  4. Restringe esa clave por **"Referencias HTTP"** y añade tu dominio, p. ej. `https://unaiindurain.github.io/*` (así nadie más puede usar tu clave desde otra web).
+  5. Pega la clave en `js/main.js`, en la constante `YOUTUBE_API_KEY = ''`.
+  - Mientras `YOUTUBE_API_KEY` esté vacía, el número se queda en `—` y debajo aparece el aviso "Configura YOUTUBE_API_KEY".
+
+- **Miembros Discord** — en vivo, **sin configuración**: usa el enlace de invitación público (`DISCORD_INVITE_CODE` en `js/main.js`, ya configurado con tu invite actual) para leer `approximate_member_count`. Si cambias el enlace de invitación de Discord, actualiza esa constante.
+
+- **Alcance Mensual** — no existe ninguna API pública que dé este dato (es una métrica agregada entre plataformas). Sigue siendo **manual**: edita directamente el `<span class="stat__value">—</span>` correspondiente en `index.html`, dentro de `#business`.
+
+> Nota: Twitch no permite consultar el nº de seguidores desde el navegador sin un backend que guarde un secreto de cliente, así que no se incluyó como "en vivo". Si más adelante quieres automatizarlo también, haría falta mover el sitio a un hosting con función serverless (p. ej. Vercel) en vez de GitHub Pages puro.
 
 ### 7. Clips destacados
 La sección `#clips` muestra 4 YouTube Shorts reales del canal (Twitch y TikTok no permiten obtener sus clips automáticamente sin iniciar sesión, así que se usaron los Shorts públicos como fuente). Cada tarjeta es un `<a class="clip">` que enlaza al short real y usa su miniatura oficial (`https://i.ytimg.com/vi/ID/frame0.jpg`).
