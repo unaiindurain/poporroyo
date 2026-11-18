@@ -89,7 +89,9 @@ Dos de las tres cifras se actualizan **solas**, sin que tengas que tocar el cód
 
 - **Miembros Discord** — en vivo, **sin configuración**: usa el enlace de invitación público (`DISCORD_INVITE_CODE` en `js/main.js`, ya configurado con tu invite actual) para leer `approximate_member_count`. Si cambias el enlace de invitación de Discord, actualiza esa constante.
 
-- **Alcance Mensual** — no existe ninguna API pública que dé este dato (es una métrica agregada entre plataformas). Sigue siendo **manual**: edita directamente el `<span class="stat__value">—</span>` correspondiente en `index.html`, dentro de `#business`.
+- **Alcance Mensual** — no existe ninguna API pública que dé este dato (es una métrica privada de analíticas). Se calculó a mano como **audiencia combinada**: la suma de seguidores/suscriptores/miembros de las 7 plataformas (Twitch + YouTube principal + YouTube secundario + TikTok principal + TikTok secundario + Instagram + Discord). Última actualización: 49.182 (49,2 mil).
+
+  Para recalcularlo: suma tus seguidores actuales de cada red y edita el `<span class="stat__value">` dentro de `#business` en `index.html` (el comentario justo encima lleva el desglose para que sea fácil actualizarlo).
 
 > Nota: Twitch no permite consultar el nº de seguidores desde el navegador sin un backend que guarde un secreto de cliente, así que no se incluyó como "en vivo". Si más adelante quieres automatizarlo también, haría falta mover el sitio a un hosting con función serverless (p. ej. Vercel) en vez de GitHub Pages puro.
 
