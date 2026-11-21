@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-type Prize = { id: string; label: string; weight: number; color: string; active: boolean };
+type Prize = { id: string; label: string; weight: number; color: string; active: boolean; show_on_landing: boolean };
 type Reward = { id: string; title: string; cost: number };
 
 type Status = {
@@ -23,6 +23,7 @@ export default function PanelView() {
   const [newRewardCost, setNewRewardCost] = useState(500);
   const [newPrizeLabel, setNewPrizeLabel] = useState('');
   const [newPrizeWeight, setNewPrizeWeight] = useState(10);
+  const [newPrizeShowOnLanding, setNewPrizeShowOnLanding] = useState(false);
 
   async function loadStatus() {
     const res = await fetch('/api/panel/status');
@@ -61,10 +62,11 @@ export default function PanelView() {
     const res = await fetch('/api/panel/prizes', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ label: newPrizeLabel, weight: newPrizeWeight }),
+      body: JSON.stringify({ label: newPrizeLabel, weight: newPrizeWeight, show_on_landing: newPrizeShowOnLanding }),
     });
     if (res.ok) {
       setNewPrizeLabel('');
+      setNewPrizeShowOnLanding(false);
       loadStatus();
     }
   }
@@ -154,6 +156,11 @@ export default function PanelView() {
 
       <div className="panel__card">
         <h2>Premios de la ruleta</h2>
+        <p className="panel__hint">
+          Marca &quot;En portada&quot; en los premios que requieran contacto (p. ej. una camiseta física): quien lo gane
+          aparecerá en la sección de ganadores de la página principal.
+        </p>
+
         {status.prizes.map((prize) => (
           <div key={prize.id} className="panel__prize-row">
             <input defaultValue={prize.label} onBlur={(e) => updatePrize(prize, { label: e.target.value })} />
@@ -163,6 +170,14 @@ export default function PanelView() {
               onBlur={(e) => updatePrize(prize, { weight: Number(e.target.value) })}
             />
             <input type="color" defaultValue={prize.color} onBlur={(e) => updatePrize(prize, { color: e.target.value })} />
+            <label className="panel__checkbox">
+              <input
+                type="checkbox"
+                defaultChecked={prize.show_on_landing}
+                onChange={(e) => updatePrize(prize, { show_on_landing: e.target.checked })}
+              />
+              En portada
+            </label>
             <button className="btn btn--ghost" onClick={() => deletePrize(prize.id)}>
               <span>Eliminar</span>
             </button>
@@ -173,6 +188,14 @@ export default function PanelView() {
           <input value={newPrizeLabel} onChange={(e) => setNewPrizeLabel(e.target.value)} placeholder="Nombre del premio" />
           <input type="number" value={newPrizeWeight} onChange={(e) => setNewPrizeWeight(Number(e.target.value))} placeholder="Peso" />
           <span />
+          <label className="panel__checkbox">
+            <input
+              type="checkbox"
+              checked={newPrizeShowOnLanding}
+              onChange={(e) => setNewPrizeShowOnLanding(e.target.checked)}
+            />
+            En portada
+          </label>
           <button className="btn btn--primary" onClick={addPrize}>
             <span>Añadir</span>
           </button>

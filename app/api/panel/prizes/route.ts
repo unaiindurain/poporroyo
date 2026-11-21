@@ -15,8 +15,8 @@ export async function POST(request: NextRequest) {
   const { rows: positionRows } = await sql`SELECT COALESCE(MAX(position), -1) + 1 AS next FROM prizes`;
 
   const { rows } = await sql`
-    INSERT INTO prizes (label, weight, color, position)
-    VALUES (${body.label}, ${Number(body.weight)}, ${body.color ?? '#FF8C42'}, ${positionRows[0].next})
+    INSERT INTO prizes (label, weight, color, position, show_on_landing)
+    VALUES (${body.label}, ${Number(body.weight)}, ${body.color ?? '#FF8C42'}, ${positionRows[0].next}, ${Boolean(body.show_on_landing)})
     RETURNING *
   `;
 
@@ -35,7 +35,8 @@ export async function PATCH(request: NextRequest) {
     SET label = COALESCE(${body.label}, label),
         weight = COALESCE(${body.weight}, weight),
         color = COALESCE(${body.color}, color),
-        active = COALESCE(${body.active}, active)
+        active = COALESCE(${body.active}, active),
+        show_on_landing = COALESCE(${body.show_on_landing}, show_on_landing)
     WHERE id = ${body.id}
     RETURNING *
   `;

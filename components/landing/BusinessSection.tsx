@@ -81,7 +81,7 @@ export default function BusinessSection() {
   return (
     <section className="business" id="business">
       <div className="section-head">
-        <p className="section-head__tag">{'// 05'}</p>
+        <p className="section-head__tag">{'// 06'}</p>
         <h2 className="section-head__title">
           MARCAS &amp; COLABORACIONES <span>{'// BUSINESS'}</span>
         </h2>

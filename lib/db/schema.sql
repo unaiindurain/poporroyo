@@ -24,13 +24,17 @@ CREATE TABLE IF NOT EXISTS streamer_channel (
 );
 
 CREATE TABLE IF NOT EXISTS prizes (
-  id        UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  label     TEXT NOT NULL,
-  weight    INTEGER NOT NULL CHECK (weight > 0),
-  color     TEXT NOT NULL DEFAULT '#FF8C42',
-  active    BOOLEAN NOT NULL DEFAULT true,
-  position  INTEGER NOT NULL DEFAULT 0
+  id               UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  label            TEXT NOT NULL,
+  weight           INTEGER NOT NULL CHECK (weight > 0),
+  color            TEXT NOT NULL DEFAULT '#FF8C42',
+  active           BOOLEAN NOT NULL DEFAULT true,
+  position         INTEGER NOT NULL DEFAULT 0,
+  show_on_landing  BOOLEAN NOT NULL DEFAULT false
 );
+
+-- Por si la tabla ya existía antes de añadir esta columna.
+ALTER TABLE prizes ADD COLUMN IF NOT EXISTS show_on_landing BOOLEAN NOT NULL DEFAULT false;
 
 CREATE TABLE IF NOT EXISTS spins (
   id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -47,13 +51,11 @@ CREATE TABLE IF NOT EXISTS spins (
 CREATE INDEX IF NOT EXISTS spins_user_status_idx ON spins (twitch_user_id, status);
 
 -- Premios iniciales de ejemplo (segmentos de la ruleta). Edítalos desde /panel.
-INSERT INTO prizes (label, weight, color, position)
+-- show_on_landing = true hace que los ganadores de ese premio aparezcan en la
+-- portada, para que el streamer sepa con quién contactar.
+INSERT INTO prizes (label, weight, color, position, show_on_landing)
 SELECT * FROM (VALUES
-  ('100 puntos extra', 10, '#FF3B7F', 0),
-  ('Grito en directo', 20, '#FF8C42', 1),
-  ('Sticker de Discord', 25, '#FFD166', 2),
-  ('Elegir el próximo juego', 5, '#00F0C8', 3),
-  ('Mención en el stream', 20, '#FF3B7F', 4),
-  ('Sigue participando', 20, '#B8AEC8', 5)
-) AS seed(label, weight, color, position)
+  ('Camiseta de Poporroyo', 1, '#FFD166', 0, true),
+  ('¡Sigue participando! La próxima vez será', 99, '#B8AEC8', 1, false)
+) AS seed(label, weight, color, position, show_on_landing)
 WHERE NOT EXISTS (SELECT 1 FROM prizes);

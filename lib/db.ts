@@ -27,6 +27,7 @@ export type DbPrize = {
   color: string;
   active: boolean;
   position: number;
+  show_on_landing: boolean;
 };
 
 export type SpinStatus = 'pending_claim' | 'used';

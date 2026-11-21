@@ -675,6 +675,104 @@ section { padding: 96px 0; position: relative; }
 }
 
 /* ===========================================================
+   WINNERS
+   =========================================================== */
+.winners__panel {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.winners__empty {
+  color: var(--text-lavender);
+  background: var(--bg-surface);
+  border: var(--border-soft);
+  border-radius: var(--radius-sm);
+  padding: 32px;
+  text-align: center;
+}
+
+.winners__list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.winners__row {
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: var(--bg-surface);
+  border: var(--border-soft);
+  border-radius: var(--radius-sm);
+}
+
+.winners__avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--sun-yellow);
+}
+
+.winners__avatar--placeholder {
+  background: var(--sunset-gradient);
+}
+
+.winners__info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.winners__name {
+  font-family: var(--font-display);
+  letter-spacing: 0.01em;
+}
+
+.winners__handle {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--pool-teal);
+}
+
+.winners__meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  text-align: right;
+}
+
+.winners__prize {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--sun-yellow);
+}
+
+.winners__date {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-lavender);
+}
+
+.winners__note {
+  margin-top: 20px;
+  color: var(--text-lavender);
+  font-size: 0.85rem;
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .winners__row { grid-template-columns: 40px 1fr; }
+  .winners__meta { grid-column: 1 / -1; align-items: flex-start; text-align: left; }
+  .winners__avatar { width: 40px; height: 40px; }
+}
+
+/* ===========================================================
    BUSINESS
    =========================================================== */
 .business__panel {
@@ -1034,10 +1132,27 @@ section { padding: 96px 0; position: relative; }
 
 .panel__prize-row {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr auto;
+  grid-template-columns: 2fr 1fr 1fr auto auto;
   gap: 10px;
   align-items: center;
 }
+
+.panel__hint {
+  font-size: 0.82rem;
+  color: var(--text-lavender);
+}
+
+.panel__checkbox {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-lavender);
+  white-space: nowrap;
+}
+
+.panel__checkbox input { width: auto; }
 
 .panel__status {
   font-family: var(--font-mono);

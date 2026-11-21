@@ -19,6 +19,7 @@ export default function Navbar() {
           <a href="/#player">En Pantalla</a>
           <a href="/#clips">Clips</a>
           <a href="/#schedule">Horario</a>
+          <a href="/#ganadores">Ganadores</a>
           <a href="/#business">Negocios</a>
           <Link href="/ruleta" className="navbar__nav-highlight">
             Ruleta
