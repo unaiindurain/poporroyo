@@ -77,6 +77,6 @@ export async function upsertViewer(user: { id: string; login: string; display_na
 }
 
 export async function getStreamerChannel(): Promise<DbStreamerChannel | null> {
-  const { rows } = await sql`SELECT * FROM streamer_channel LIMIT 1`;
+  const { rows } = await sql`SELECT * FROM streamer_channel ORDER BY updated_at DESC LIMIT 1`;
   return (rows[0] as DbStreamerChannel) ?? null;
 }

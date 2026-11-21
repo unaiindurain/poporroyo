@@ -22,6 +22,10 @@ export async function GET(request: NextRequest) {
   const identity = await getViewerIdentity(token.access_token);
   const expiresAt = new Date(Date.now() + token.expires_in * 1000).toISOString();
 
+  // Esta app gestiona un único canal: si se autoriza con una cuenta de Twitch distinta
+  // a la ya vinculada, la sustituye en vez de dejar filas huérfanas.
+  await sql`DELETE FROM streamer_channel WHERE broadcaster_user_id <> ${identity.id}`;
+
   await sql`
     INSERT INTO streamer_channel (broadcaster_user_id, broadcaster_login, access_token, refresh_token, token_expires_at)
     VALUES (${identity.id}, ${identity.login}, ${encryptSecret(token.access_token)}, ${encryptSecret(token.refresh_token)}, ${expiresAt})
