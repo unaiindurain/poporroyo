@@ -2,7 +2,20 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-export type WheelPrize = { id: string; label: string; color: string };
+export type WheelPrize = { id: string; label: string; color: string; weight: number };
+
+/** Arco en grados de cada premio, proporcional a su peso (no a partes iguales). */
+function getArcs(prizes: WheelPrize[]) {
+  const totalWeight = prizes.reduce((sum, p) => sum + p.weight, 0) || 1;
+  let acc = 0;
+
+  return prizes.map((p) => {
+    const start = (acc / totalWeight) * 360;
+    acc += p.weight;
+    const end = (acc / totalWeight) * 360;
+    return { prize: p, start, end, center: (start + end) / 2 };
+  });
+}
 
 export default function Wheel({
   prizes,
@@ -19,14 +32,12 @@ export default function Wheel({
   useEffect(() => {
     if (!targetPrizeId) return;
 
-    const index = prizes.findIndex((p) => p.id === targetPrizeId);
-    if (index === -1) return;
+    const arc = getArcs(prizes).find((a) => a.prize.id === targetPrizeId);
+    if (!arc) return;
 
-    const segment = 360 / prizes.length;
-    const segmentCenter = index * segment + segment / 2;
     const extraSpins = 6;
 
-    setRotation((current) => current - (current % 360) + extraSpins * 360 + (360 - segmentCenter));
+    setRotation((current) => current - (current % 360) + extraSpins * 360 + (360 - arc.center));
 
     timeoutRef.current = setTimeout(onSettled, 4700);
     return () => {
@@ -35,16 +46,16 @@ export default function Wheel({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [targetPrizeId]);
 
-  const segment = 360 / Math.max(prizes.length, 1);
-  const gradient = prizes.map((p, i) => `${p.color} ${i * segment}deg ${(i + 1) * segment}deg`).join(', ');
+  const arcs = getArcs(prizes);
+  const gradient = arcs.map((a) => `${a.prize.color} ${a.start}deg ${a.end}deg`).join(', ');
 
   return (
     <div className="wheel-wrap">
       <div className="wheel-wrap__pointer" />
       <div className="wheel" style={{ background: `conic-gradient(${gradient})`, transform: `rotate(${rotation}deg)` }}>
-        {prizes.map((p, i) => (
-          <div key={p.id} className="wheel__label" style={{ transform: `rotate(${i * segment + segment / 2}deg)` }}>
-            <span>{p.label}</span>
+        {arcs.map((a) => (
+          <div key={a.prize.id} className="wheel__label" style={{ transform: `rotate(${a.center}deg)` }}>
+            <span>{a.prize.label}</span>
           </div>
         ))}
       </div>
