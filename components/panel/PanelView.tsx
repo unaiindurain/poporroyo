@@ -5,12 +5,20 @@ import { useEffect, useState } from 'react';
 type Prize = { id: string; label: string; weight: number; color: string; active: boolean; show_on_landing: boolean };
 type Reward = { id: string; title: string; cost: number };
 
+type TtsStatus = {
+  rewardId: string | null;
+  rewardTitle: string | null;
+  baseCost: number | null;
+  discountUntil: string | null;
+};
+
 type Status = {
   broadcasterLogin?: string;
   rewardId?: string | null;
   rewardTitle?: string | null;
   eventsubConnected: boolean;
   prizes: Prize[];
+  tts: TtsStatus;
 };
 
 export default function PanelView() {
@@ -54,6 +62,17 @@ export default function PanelView() {
     });
     const data = await res.json();
     setMessage(res.ok ? { text: 'Recompensa vinculada correctamente.', isError: false } : { text: data.error, isError: true });
+    if (res.ok) loadStatus();
+  }
+
+  async function linkTtsReward(reward: Reward) {
+    const res = await fetch('/api/panel/tts', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ rewardId: reward.id, rewardTitle: reward.title, cost: reward.cost }),
+    });
+    const data = await res.json();
+    setMessage(res.ok ? { text: 'Recompensa de TTS vinculada correctamente.', isError: false } : { text: data.error, isError: true });
     if (res.ok) loadStatus();
   }
 
@@ -152,6 +171,51 @@ export default function PanelView() {
         </div>
 
         {message && <p className={message.isError ? 'panel__status panel__status--error' : 'panel__status'}>{message.text}</p>}
+      </div>
+
+      <div className="panel__card">
+        <h2>Recompensa de TTS</h2>
+        <p className="panel__hint">
+          Cuando alguien gana el premio &quot;TTS a 5 puntos&quot; en la ruleta, esta recompensa baja a 5 puntos
+          durante 5 minutos y luego vuelve sola a su coste normal.
+        </p>
+
+        {status.tts.rewardTitle ? (
+          <p>
+            Vinculada: <strong>{status.tts.rewardTitle}</strong> (coste normal: {status.tts.baseCost} puntos).{' '}
+            {status.tts.discountUntil && (
+              <span className="panel__status">
+                Descuento activo hasta las {new Date(status.tts.discountUntil).toLocaleTimeString('es-ES')}
+              </span>
+            )}
+          </p>
+        ) : (
+          <p className="panel__hint">
+            Sin vincular todavía: si gana ese premio, el streamer tendrá que bajar el coste a mano en Twitch.
+          </p>
+        )}
+
+        {rewards.length > 0 && (
+          <div className="panel__field">
+            <label>Elegir qué recompensa es la de TTS</label>
+            <select
+              defaultValue=""
+              onChange={(e) => {
+                const reward = rewards.find((r) => r.id === e.target.value);
+                if (reward) linkTtsReward(reward);
+              }}
+            >
+              <option value="" disabled>
+                Selecciona una recompensa
+              </option>
+              {rewards.map((r) => (
+                <option key={r.id} value={r.id}>
+                  {r.title} ({r.cost} puntos)
+                </option>
+              ))}
+            </select>
+          </div>
+        )}
       </div>
 
       <div className="panel__card">

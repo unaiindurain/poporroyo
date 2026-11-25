@@ -3,12 +3,15 @@ import { getSession } from '@/lib/session';
 import { sql } from '@/lib/db';
 import { getActivePrizes, drawWeightedPrize } from '@/lib/prizes';
 import { getValidStreamerAccessToken, updateRedemptionStatus } from '@/lib/twitch';
+import { activateTtsDiscount, maybeRevertTtsDiscount } from '@/lib/tts';
 
 export async function POST() {
   const session = await getSession();
   if (!session) {
     return NextResponse.json({ error: 'No has iniciado sesión' }, { status: 401 });
   }
+
+  await maybeRevertTtsDiscount().catch((err) => console.error('No se pudo revertir el descuento de TTS:', err));
 
   const prizes = await getActivePrizes();
   if (prizes.length === 0) {
@@ -34,6 +37,10 @@ export async function POST() {
   const spin = rows[0];
   if (!spin) {
     return NextResponse.json({ error: 'No tienes ninguna tirada disponible' }, { status: 409 });
+  }
+
+  if (prize.action === 'tts_discount') {
+    await activateTtsDiscount().catch((err) => console.error('No se pudo activar el descuento de TTS:', err));
   }
 
   // Marcar el canje como cumplido en Twitch (en segundo plano, no bloquea la respuesta al viewer).

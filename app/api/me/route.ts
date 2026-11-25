@@ -1,8 +1,11 @@
 import { NextResponse } from 'next/server';
 import { getSession } from '@/lib/session';
 import { sql } from '@/lib/db';
+import { maybeRevertTtsDiscount } from '@/lib/tts';
 
 export async function GET() {
+  await maybeRevertTtsDiscount().catch((err) => console.error('No se pudo revertir el descuento de TTS:', err));
+
   const session = await getSession();
   if (!session) {
     return NextResponse.json({ authenticated: false });

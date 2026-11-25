@@ -171,6 +171,20 @@ export async function createReward(
   return data.data[0];
 }
 
+/** Cambia el coste en puntos de una recompensa ya existente (p. ej. para el descuento temporal del TTS). */
+export async function updateRewardCost(
+  broadcasterUserId: string,
+  accessToken: string,
+  rewardId: string,
+  cost: number,
+): Promise<void> {
+  await helix(`/channel_points/custom_rewards?broadcaster_id=${broadcasterUserId}&id=${rewardId}`, accessToken, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ cost }),
+  });
+}
+
 export async function updateRedemptionStatus(params: {
   broadcasterUserId: string;
   accessToken: string;

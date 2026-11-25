@@ -23,6 +23,13 @@ CREATE TABLE IF NOT EXISTS streamer_channel (
   updated_at            TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
+-- Recompensa de TTS cuyo coste se baja temporalmente al ganar el premio
+-- correspondiente en la ruleta (ver prizes.action = 'tts_discount').
+ALTER TABLE streamer_channel ADD COLUMN IF NOT EXISTS tts_reward_id TEXT;
+ALTER TABLE streamer_channel ADD COLUMN IF NOT EXISTS tts_reward_title TEXT;
+ALTER TABLE streamer_channel ADD COLUMN IF NOT EXISTS tts_base_cost INTEGER;
+ALTER TABLE streamer_channel ADD COLUMN IF NOT EXISTS tts_discount_until TIMESTAMPTZ;
+
 CREATE TABLE IF NOT EXISTS prizes (
   id               UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   label            TEXT NOT NULL,
@@ -35,6 +42,10 @@ CREATE TABLE IF NOT EXISTS prizes (
 
 -- Por si la tabla ya existía antes de añadir esta columna.
 ALTER TABLE prizes ADD COLUMN IF NOT EXISTS show_on_landing BOOLEAN NOT NULL DEFAULT false;
+
+-- Efecto especial que dispara el backend al ganar este premio (ver lib/tts.ts).
+-- Hoy solo existe 'tts_discount'; cualquier otro premio deja esto en NULL.
+ALTER TABLE prizes ADD COLUMN IF NOT EXISTS action TEXT CHECK (action IS NULL OR action IN ('tts_discount'));
 
 CREATE TABLE IF NOT EXISTS spins (
   id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),

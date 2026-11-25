@@ -17,8 +17,14 @@ export type DbStreamerChannel = {
   reward_id: string | null;
   reward_title: string | null;
   eventsub_sub_id: string | null;
+  tts_reward_id: string | null;
+  tts_reward_title: string | null;
+  tts_base_cost: number | null;
+  tts_discount_until: string | null;
   updated_at: string;
 };
+
+export type PrizeAction = 'tts_discount';
 
 export type DbPrize = {
   id: string;
@@ -28,6 +34,7 @@ export type DbPrize = {
   active: boolean;
   position: number;
   show_on_landing: boolean;
+  action: PrizeAction | null;
 };
 
 export type SpinStatus = 'pending_claim' | 'used';
