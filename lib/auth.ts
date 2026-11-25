@@ -11,3 +11,14 @@ export async function requireStreamerSession(): Promise<SessionPayload | null> {
 
   return session;
 }
+
+// ID de Twitch de naigabot. Se comprueba por ID (no por login) porque un
+// nombre de usuario de Twitch se puede cambiar; el ID es permanente.
+const ADMIN_TWITCH_USER_ID = '1245032038';
+
+/** Solo deja pasar a la cuenta de Twitch autorizada para ver el panel de datos. */
+export async function requireAdminSession(): Promise<SessionPayload | null> {
+  const session = await getSession();
+  if (!session || session.twitch_user_id !== ADMIN_TWITCH_USER_ID) return null;
+  return session;
+}

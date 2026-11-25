@@ -1161,3 +1161,107 @@ section { padding: 96px 0; position: relative; }
 }
 
 .panel__status--error { color: var(--sunset-pink); }
+
+/* ---------- Panel de datos (admin) ---------- */
+.admindb {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 72px 24px 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.admindb__head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.admindb__generated {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-lavender);
+}
+
+.admindb__card {
+  background: var(--bg-surface);
+  border: var(--border-soft);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.admindb__card-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: var(--border-soft);
+}
+
+.admindb__card-head h2 {
+  font-family: var(--font-mono);
+  color: var(--pool-teal);
+  letter-spacing: 0.06em;
+  font-size: 0.95rem;
+}
+
+.admindb__count {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-lavender);
+}
+
+.admindb__scroll { overflow-x: auto; }
+
+.admindb table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.admindb th,
+.admindb td {
+  padding: 10px 20px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 140, 66, 0.12);
+}
+
+.admindb th {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-lavender);
+}
+
+.admindb tr:last-child td { border-bottom: none; }
+.admindb tr:hover td { background: rgba(255, 140, 66, 0.04); }
+
+.admindb__mono { font-family: var(--font-mono); font-size: 0.78rem; }
+
+.admindb__swatch {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.admindb__pill {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.admindb__pill--ok { background: rgba(0, 240, 200, 0.15); color: var(--pool-teal); }
+.admindb__pill--warn { background: rgba(255, 209, 102, 0.15); color: var(--sun-yellow); }
+.admindb__pill--off { background: rgba(184, 174, 200, 0.12); color: var(--text-lavender); }

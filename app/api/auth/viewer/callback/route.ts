@@ -1,6 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { exchangeCodeForToken, getViewerIdentity, siteUrl } from '@/lib/twitch';
-import { createSessionToken, readAndClearStateCookie, setSessionCookie, clearStateCookie } from '@/lib/session';
+import {
+  createSessionToken,
+  readAndClearStateCookie,
+  setSessionCookie,
+  clearStateCookie,
+  readAndClearNextPath,
+  clearNextCookie,
+  isSafeNextPath,
+} from '@/lib/session';
 import { upsertViewer } from '@/lib/db';
 
 export async function GET(request: NextRequest) {
@@ -35,8 +43,12 @@ export async function GET(request: NextRequest) {
     role: 'viewer',
   });
 
-  const response = NextResponse.redirect(new URL('/ruleta', request.url));
+  const next = await readAndClearNextPath();
+  const target = next && isSafeNextPath(next) ? next : '/ruleta';
+
+  const response = NextResponse.redirect(new URL(target, request.url));
   setSessionCookie(response, sessionToken);
   clearStateCookie(response, 'viewer');
+  clearNextCookie(response);
   return response;
 }

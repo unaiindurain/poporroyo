@@ -1,7 +1,7 @@
 import { randomBytes } from 'node:crypto';
 import { NextRequest, NextResponse } from 'next/server';
 import { buildAuthorizeUrl, siteUrl } from '@/lib/twitch';
-import { setStateCookie } from '@/lib/session';
+import { setStateCookie, setNextCookie, isSafeNextPath } from '@/lib/session';
 
 export async function GET(request: NextRequest) {
   const state = randomBytes(16).toString('hex');
@@ -13,5 +13,9 @@ export async function GET(request: NextRequest) {
 
   const response = NextResponse.redirect(authorizeUrl);
   setStateCookie(response, 'viewer', state);
+
+  const next = request.nextUrl.searchParams.get('next');
+  if (next && isSafeNextPath(next)) setNextCookie(response, next);
+
   return response;
 }

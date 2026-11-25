@@ -82,3 +82,31 @@ export async function readAndClearStateCookie(flow: 'viewer' | 'streamer'): Prom
 export function clearStateCookie(response: NextResponse, flow: 'viewer' | 'streamer') {
   response.cookies.delete(stateCookieName(flow));
 }
+
+/* ---------- Ruta de vuelta tras el login del viewer (ej. /admin/db) ---------- */
+
+const NEXT_COOKIE = 'poporroyo_oauth_next_viewer';
+
+/** Solo rutas internas (`/algo`), nunca `//evil.com` ni URLs absolutas. */
+export function isSafeNextPath(path: string): boolean {
+  return path.startsWith('/') && !path.startsWith('//');
+}
+
+export function setNextCookie(response: NextResponse, path: string) {
+  response.cookies.set(NEXT_COOKIE, path, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    path: '/',
+    maxAge: STATE_MAX_AGE_SECONDS,
+  });
+}
+
+export async function readAndClearNextPath(): Promise<string | null> {
+  const store = await cookies();
+  return store.get(NEXT_COOKIE)?.value ?? null;
+}
+
+export function clearNextCookie(response: NextResponse) {
+  response.cookies.delete(NEXT_COOKIE);
+}
